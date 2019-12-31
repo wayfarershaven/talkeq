@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/wayfarershaven/talkeq/channel"
+	"github.com/wayfarershaven/talkeq/peqeditorsql"
 
 	"github.com/wayfarershaven/talkeq/config"
 	"github.com/wayfarershaven/talkeq/discord"
@@ -20,12 +21,13 @@ import (
 
 // Client wraps all talking endpoints
 type Client struct {
-	ctx     context.Context
-	cancel  context.CancelFunc
-	config  *config.Config
-	discord *discord.Discord
-	telnet  *telnet.Telnet
-	eqlog   *eqlog.EQLog
+	ctx          context.Context
+	cancel       context.CancelFunc
+	config       *config.Config
+	discord      *discord.Discord
+	telnet       *telnet.Telnet
+	eqlog        *eqlog.EQLog
+	peqeditorsql *peqeditorsql.PEQEditorSQL
 }
 
 // New creates a new client
@@ -78,6 +80,16 @@ func New(ctx context.Context) (*Client, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "eqlog subscribe")
 	}
+
+	c.peqeditorsql, err = peqeditorsql.New(ctx, c.config.PEQEditor.SQL)
+	if err != nil {
+		return nil, errors.Wrap(err, "peqeditorsql")
+	}
+
+	err = c.peqeditorsql.Subscribe(ctx, c.onMessage)
+	if err != nil {
+		return nil, errors.Wrap(err, "peqeditorsql subscribe")
+	}
 	return &c, nil
 }
 
@@ -105,6 +117,14 @@ func (c *Client) Connect(ctx context.Context) error {
 			return errors.Wrap(err, "eqlog connect")
 		}
 		log.Warn().Err(err).Msg("eqlog connect")
+	}
+
+	err = c.peqeditorsql.Connect(ctx)
+	if err != nil {
+		if !c.config.IsKeepAliveEnabled {
+			return errors.Wrap(err, "peqeditorsql connect")
+		}
+		log.Warn().Err(err).Msg("peqeditorsql connect")
 	}
 
 	go c.loop(ctx)
@@ -170,6 +190,22 @@ func (c *Client) onMessage(source string, author string, channelID int, message 
 	var err error
 	endpoints := "none"
 	switch source {
+	case "peqeditorsql":
+		if !c.config.Discord.IsEnabled {
+			log.Info().Msgf("[%s->none] %s %s: %s", source, author, channel.ToString(channelID), message)
+			return
+		}
+		err = c.discord.Send(context.Background(), source, author, channelID, message)
+		if err != nil {
+			log.Warn().Err(err).Msg("discord send")
+		} else {
+			if endpoints == "none" {
+				endpoints = "discord"
+			} else {
+				endpoints += ",discord"
+			}
+		}
+		log.Info().Msgf("[%s->%s] %s %s: %s", source, endpoints, author, channel.ToString(channelID), message)
 	case "telnet":
 		if !c.config.Discord.IsEnabled {
 			log.Info().Msgf("[%s->none] %s %s: %s", source, author, channel.ToString(channelID), message)
