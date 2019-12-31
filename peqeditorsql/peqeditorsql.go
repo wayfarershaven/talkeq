@@ -11,13 +11,13 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/xackery/talkeq/channel"
+	"github.com/wayfarershaven/talkeq/channel"
 
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
 
 	"github.com/hpcloud/tail"
-	"github.com/xackery/talkeq/config"
+	"github.com/wayfarershaven/talkeq/config"
 )
 
 // PEQEditorSQL represents a peqeditorsql connection
