@@ -6,17 +6,17 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/wayfarershaven/talkeq/channel"
-	"github.com/wayfarershaven/talkeq/peqeditorsql"
-
-	"github.com/wayfarershaven/talkeq/config"
-	"github.com/wayfarershaven/talkeq/discord"
-	"github.com/wayfarershaven/talkeq/eqlog"
-	"github.com/wayfarershaven/talkeq/telnet"
-
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
+	"github.com/wayfarershaven/talkeq/channel"
+	"github.com/wayfarershaven/talkeq/config"
+	"github.com/wayfarershaven/talkeq/database"
+	"github.com/wayfarershaven/talkeq/discord"
+	"github.com/wayfarershaven/talkeq/eqlog"
+	"github.com/wayfarershaven/talkeq/peqeditorsql"
+	"github.com/wayfarershaven/talkeq/telnet"
+
 )
 
 // Client wraps all talking endpoints
@@ -51,7 +51,11 @@ func New(ctx context.Context) (*Client, error) {
 		//return nil, fmt.Errorf("keep_alive_retry must be greater than 2s")
 	}
 
-	c.discord, err = discord.New(ctx, c.config.Discord)
+	userManager, err := database.NewUserManager(ctx, c.config)
+	if err != nil {
+		return nil, errors.Wrap(err, "usermanager")
+	}
+	c.discord, err = discord.New(ctx, c.config.Discord, userManager)
 	if err != nil {
 		return nil, errors.Wrap(err, "discord")
 	}
