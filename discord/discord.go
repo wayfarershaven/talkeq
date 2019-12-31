@@ -16,8 +16,8 @@ import (
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/pkg/errors"
-	"github.com/xackery/talkeq/channel"
-	"github.com/xackery/talkeq/config"
+	"github.com/wayfarershaven/talkeq/channel"
+	"github.com/wayfarershaven/talkeq/config"
 )
 
 // Discord represents a discord connection

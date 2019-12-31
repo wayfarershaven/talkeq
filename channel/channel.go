@@ -7,9 +7,9 @@ import (
 
 const (
 	// Auction channel name
-	Auction = "auction"
+	Auction = "Auctions"
 	// OOC channel name
-	OOC = "ooc"
+	OOC = "Says in OOC"
 	// General Chat channel name
 	General = "general"
 	// Guild Chat channel name

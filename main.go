@@ -10,7 +10,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
-	"github.com/xackery/talkeq/client"
+	"github.com/wayfarershaven/talkeq/client"
 )
 
 // Version is the build version

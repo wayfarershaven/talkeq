@@ -6,12 +6,12 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/xackery/talkeq/channel"
+	"github.com/wayfarershaven/talkeq/channel"
 
-	"github.com/xackery/talkeq/config"
-	"github.com/xackery/talkeq/discord"
-	"github.com/xackery/talkeq/eqlog"
-	"github.com/xackery/talkeq/telnet"
+	"github.com/wayfarershaven/talkeq/config"
+	"github.com/wayfarershaven/talkeq/discord"
+	"github.com/wayfarershaven/talkeq/eqlog"
+	"github.com/wayfarershaven/talkeq/telnet"
 
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"

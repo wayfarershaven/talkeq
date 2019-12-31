@@ -1,4 +1,4 @@
-module github.com/xackery/talkeq
+module github.com/wayfarershaven/talkeq
 
 go 1.13
 

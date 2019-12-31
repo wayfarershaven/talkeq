@@ -12,8 +12,8 @@ import (
 	"github.com/rs/zerolog/log"
 
 	"github.com/pkg/errors"
-	"github.com/xackery/talkeq/channel"
-	"github.com/xackery/talkeq/config"
+	"github.com/wayfarershaven/talkeq/channel"
+	"github.com/wayfarershaven/talkeq/config"
 	"github.com/ziutek/telnet"
 )
 
