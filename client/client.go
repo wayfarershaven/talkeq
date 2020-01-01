@@ -16,7 +16,6 @@ import (
 	"github.com/wayfarershaven/talkeq/eqlog"
 	"github.com/wayfarershaven/talkeq/peqeditorsql"
 	"github.com/wayfarershaven/talkeq/telnet"
-
 )
 
 // Client wraps all talking endpoints
