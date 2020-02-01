@@ -11,7 +11,7 @@ import (
 	"github.com/fsnotify/fsnotify"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
-	"github.com/xackery/talkeq/config"
+	"github.com/wayfarershaven/talkeq/config"
 )
 
 // GuildManager manages the guilds registered

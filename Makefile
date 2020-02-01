@@ -3,7 +3,7 @@ VERSION := v0.0.22
 NAME := talkeq
 
 .PHONY: build-all
-build-all: sanitize
+build-all:
 	@echo "Preparing talkeq ${VERSION}"
 	@rm -rf bin/*
 	@-mkdir -p bin/
@@ -15,10 +15,6 @@ build-all: sanitize
 	@GOOS=windows GOARCH=386 go build -ldflags="-X main.Version=${VERSION} -s -w" -o bin/${NAME}-${VERSION}-win-x86.exe main.go
 	@echo "Building OSX"
 	@GOOS=darwin GOARCH=amd64 go build -ldflags="-X main.Version=${VERSION} -s -w" -o bin/${NAME}-${VERSION}-osx-x64 main.go
-.PHONY: sanitize
-sanitize:
-	@goimports -w .
-	@golint
 
 PROTO_VERSION=3.8.0
 GO_PLUGIN=bin/protoc-gen-go
@@ -39,7 +35,7 @@ proto-clean:
 .PHONY: proto
 proto: proto-clean ## Generate protobuf files
 	@echo "proto > pb"
-	@(docker run --rm -v ${PWD}:/src xackery/protobuf:$(PROTO_VERSION) protoc \
+	@(docker run --rm -v ${PWD}:/src wayfarershaven/protobuf:$(PROTO_VERSION) protoc \
 	-I/protobuf/src \
 	-I/src \
 	-I/grpc \

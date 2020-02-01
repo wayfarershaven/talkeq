@@ -13,10 +13,10 @@ import (
 
 	nats "github.com/nats-io/nats.go"
 	"github.com/pkg/errors"
-	"github.com/xackery/talkeq/channel"
-	"github.com/xackery/talkeq/config"
-	"github.com/xackery/talkeq/database"
-	"github.com/xackery/talkeq/pb"
+	"github.com/wayfarershaven/talkeq/channel"
+	"github.com/wayfarershaven/talkeq/config"
+	"github.com/wayfarershaven/talkeq/database"
+	"github.com/wayfarershaven/talkeq/pb"
 )
 
 // Nats represents a nats connection

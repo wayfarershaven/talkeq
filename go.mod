@@ -1,4 +1,4 @@
-module github.com/xackery/talkeq
+module github.com/wayfarershaven/talkeq
 
 go 1.13
 
@@ -14,6 +14,7 @@ require (
 	github.com/rs/zerolog v1.17.2
 	github.com/ziutek/telnet v0.0.0-20180329124119-c3b780dc415b
 	golang.org/x/sys v0.0.0-20190726091711-fc99dfbffb4e // indirect
+	golang.org/x/tools v0.0.0-20200131211209-ecb101ed6550 // indirect
 	gopkg.in/fsnotify.v1 v1.4.7 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 )

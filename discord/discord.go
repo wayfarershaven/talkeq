@@ -16,9 +16,9 @@ import (
 	"github.com/bwmarrin/discordgo"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
-	"github.com/xackery/talkeq/channel"
-	"github.com/xackery/talkeq/config"
-	"github.com/xackery/talkeq/database"
+	"github.com/wayfarershaven/talkeq/channel"
+	"github.com/wayfarershaven/talkeq/config"
+	"github.com/wayfarershaven/talkeq/database"
 )
 
 // Discord represents a discord connection
